@@ -178,3 +178,53 @@ Utilize um banco de dados relacional (postgresql, mysql, etc).<br>
 Será observado organização de código, legibilidade e melhor uso dos recursos da linguagem python e boa práticas do Django. Como bônus e se sentir a vontade pode fazer uso do biblioteca [Django REST Framework](https://www.django-rest-framework.org/).
 
 Se durante o processo de desenvolvimento não conseguiu fazer algo, explique qual o impedimento que encontrou e como tentou resolver em uma seção `Dificuldades` do seu README.md e nos submite até onde chegou :smile:
+
+## Documentação
+
+### Rotas:
+- users/register 
+  - Rota para criação de usuários, recebe como parâmentros email e password
+  
+- users/login 
+  - Rota para login de usuários, recebe como parâmetros username(igual ao email) e password e retorna dois tokens JWT
+  
+- users/login/refresh/ 
+  - Rota para atualizar o token JWT
+  
+- navers/ 
+  - Se utilizado o método GET, retorna todos os navers
+  
+- navers/ 
+  - Se utilizado o método POST, adiciona um naver, recebendo como parâmetros name, birthdate, job_role e projects
+  
+- navers/{id}/ 
+  - Se utilizado o método GET, retorna as informações detalhadas do naver correspondente ao id
+  
+- navers/{id}/ 
+  - Se utilizado o método PUT, faz uma atualização completo do naver correspondente ao id, recebendo os mesmos parâmetros utilizado na criação de navers
+  
+- navers/{id}/ 
+  - Se utilizado o método PATCH, faz uma atualização parcial do naver correspondente ao id, não sendo obrigatório receber todos os parâmetros do naver
+  
+- navers/{id}/ 
+  - Se utilizado o método DELETE, deleta o naver correspondente ao id
+
+### Detalhes:
+- Login
+  - Ao fazer login, o usuário recebe dois tokens JWT, refresh e access. O token access é utilizado para realizar a autenticação nas rotas, já o token refresh é utilizado para atualizar o token access
+  ```
+          {
+              "refresh": "...",
+              "access": "..."
+          }
+  ```
+  
+- Autenticação
+  - Com exceção das rotas de registro e login de usuário, todas as outras requerem autenticação via token JWT
+
+- Buscas
+  - Na rota navers/ é possível fazer dois tipos de buscas, diretamente por propriedades ou utilizando search, em ambos os casos, a propriedades que são utilizadas são name, job_role e admission_date
+  
+    - Diretamente por propriedades, a busca fica na forma *navers/?name=fulano&job_role=desenvolvedor&admission_date=2020-08-24*, buscando somente os navers que coincidem com os dados informados, porém não é obrigado utilizar todas as propriedades, podendo realizar a busca com uma, duas ou três propriedades
+    
+    - Utilizando search, a busca fica na forma *navers/?search=fulano*, buscando os navers que possuem dados semelhantes ou iguais aos informadas, realizando a análise em todas as propriedades
