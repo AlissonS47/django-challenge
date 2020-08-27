@@ -1,7 +1,6 @@
 from rest_framework import viewsets, status, filters
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 from django.contrib.auth.models import User
 from .serializers import UserRegisterSerializer, NaverSerializer, NaverDetailSerializer, NaverRegisterSerializer, NaverUpdateSerializer
@@ -105,12 +104,12 @@ class NaverViewSet(viewsets.ModelViewSet):
         else:
             response_message = {"Failed": "Action denied"}
             response_status = status.HTTP_401_UNAUTHORIZED
-        return Response(data=serializer.data, status=response_status)
+        return Response(data=response_message, status=response_status)
 
     def destroy(self, request, pk=None):
         naver_queryset = Naver.objects.get(id=pk)
         response_status = status.HTTP_200_OK
-        response_message = {"Success": "User successfully deleted"}
+        response_message = {"Success": "Naver successfully deleted"}
         if request.user == naver_queryset.user:
             naver_queryset.delete()
         else:

@@ -2,11 +2,10 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from users.models import Naver
 from projects.models import Project
-from projects.api.serializers import ProjectSimpleSerializer
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = User
         fields = ['email', 'password']
@@ -27,8 +26,15 @@ class NaverSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'birthdate', 'admission_date', 'job_role']
 
 
+class ProjectSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Project
+        fields = ['id', 'name']
+
+
 class NaverDetailSerializer(serializers.ModelSerializer):
-    projects = ProjectSimpleSerializer(many=True)
+    projects = ProjectSerializer(many=True)
 
     class Meta:
         model = Naver
@@ -70,11 +76,11 @@ class NaverUpdateSerializer(serializers.ModelSerializer):
         model = Naver
         fields = ['name', 'birthdate', 'admission_date', 'job_role']
 
-    def addProjects(self, naver, data):
-        if 'projects' in data:
-            for project in naver.projects:
-                pj = Project.objects.get(id=project.id)
-                pj.navers.remove(naver)
+    def addProjects(self, project, data):
+        if 'navers' in data:
+            for naver in project.navers:
+                nv = Naver.objects.get(id=project.id)
+                project.navers.remove(nv)
 
             for project in data['projects']:
                 pj = Project.objects.get(id=project)
