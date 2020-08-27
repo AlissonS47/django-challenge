@@ -215,16 +215,16 @@ Se durante o processo de desenvolvimento não conseguiu fazer algo, explique qua
 - projects/ 
   - Se utilizado o método POST, adiciona um projeto, recebendo como name, navers
   
-- navers/{id}/ 
+- projects/{id}/ 
   - Se utilizado o método GET, retorna as informações detalhadas do projeto correspondente ao id
   
-- navers/{id}/ 
+- projects/{id}/ 
   - Se utilizado o método PUT, faz uma atualização completo do projeto correspondente ao id, recebendo os mesmos parâmetros utilizado na criação de projetos
   
-- navers/{id}/ 
+- projects/{id}/ 
   - Se utilizado o método PATCH, faz uma atualização parcial do projeto correspondente ao id, não sendo obrigatório receber todos os parâmetros do projeto
   
-- navers/{id}/ 
+- projects/{id}/ 
   - Se utilizado o método DELETE, deleta o projeto correspondente ao id
 
 ### Detalhes:
