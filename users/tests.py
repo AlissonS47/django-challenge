@@ -1,8 +1,5 @@
-import json
 from django.contrib.auth.models import User
-from django.urls import reverse
 from rest_framework import status
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.test import APITestCase
 from .models import Naver
 from projects.models import Project
@@ -73,6 +70,17 @@ class NaverTestCase(APITestCase):
         project.save()
         project = Project.objects.first()
         self.project_id = project.id
+    
+    def testAuth(self):
+        # without authentication
+        self.client.credentials(HTTP_AUTHORIZATION='No Auth')
+        response = self.client.get('/navers/')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        # with authentication
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.user_token}')
+        response = self.client.get('/navers/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def testRegistration(self):
         data = {
@@ -161,7 +169,7 @@ class NaverTestCase(APITestCase):
         # create naver
         self.testRegistration()
 
-        # whitout search
+        # without search
         response = self.client.get(
             '/navers/?name=testnaver&job_role=test&admission_date=2020-08-28'
         )
