@@ -208,6 +208,24 @@ Se durante o processo de desenvolvimento não conseguiu fazer algo, explique qua
   
 - navers/{id}/ 
   - Se utilizado o método DELETE, deleta o naver correspondente ao id
+  
+- projects/ 
+  - Se utilizado o método GET, retorna todos os projetos
+  
+- projects/ 
+  - Se utilizado o método POST, adiciona um projeto, recebendo como name, navers
+  
+- projects/{id}/ 
+  - Se utilizado o método GET, retorna as informações detalhadas do projeto correspondente ao id
+  
+- projects/{id}/ 
+  - Se utilizado o método PUT, faz uma atualização completo do projeto correspondente ao id, recebendo os mesmos parâmetros utilizado na criação de projetos
+  
+- projects/{id}/ 
+  - Se utilizado o método PATCH, faz uma atualização parcial do projeto correspondente ao id, não sendo obrigatório receber todos os parâmetros do projeto
+  
+- projects/{id}/ 
+  - Se utilizado o método DELETE, deleta o projeto correspondente ao id
 
 ### Detalhes:
 - Login
@@ -228,3 +246,5 @@ Se durante o processo de desenvolvimento não conseguiu fazer algo, explique qua
     - Diretamente por propriedades, a busca fica na forma *navers/?name=fulano&job_role=desenvolvedor&admission_date=2020-08-24*, buscando somente os navers que coincidem com os dados informados, porém não é obrigado utilizar todas as propriedades, podendo realizar a busca com uma, duas ou três propriedades
     
     - Utilizando search, a busca fica na forma *navers/?search=fulano*, buscando os navers que possuem dados semelhantes ou iguais aos informadas, realizando a análise em todas as propriedades
+    
+  - Na rota projects/ funciona da mesma maneira da rota navers/, porém a propriedade utilizada na busca é name
