@@ -189,7 +189,7 @@ Se durante o processo de desenvolvimento não conseguiu fazer algo, explique qua
   - Rota para login de usuários, recebe como parâmetros username(igual ao email) e password e retorna dois tokens JWT
   
 - users/login/refresh/ 
-  - Rota para atualizar o token JWT
+  - Rota para atualizar o token JWT, recebe como parâmentro refresh, o JWT para refresh
   
 - navers/ 
   - Se utilizado o método GET, retorna todos os navers
@@ -213,7 +213,7 @@ Se durante o processo de desenvolvimento não conseguiu fazer algo, explique qua
   - Se utilizado o método GET, retorna todos os projetos
   
 - projects/ 
-  - Se utilizado o método POST, adiciona um projeto, recebendo como name, navers
+  - Se utilizado o método POST, adiciona um projeto, recebendo como parâmetros name e navers
   
 - projects/{id}/ 
   - Se utilizado o método GET, retorna as informações detalhadas do projeto correspondente ao id
